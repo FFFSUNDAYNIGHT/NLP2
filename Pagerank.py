@@ -2,7 +2,7 @@ import networkx as nx
 
 def pagerank(G, max_iter = 100, damping = 0.85, weight = 'weight', tol = 1e-6):
     '''
-    Calculate node's importance in G according node's degree and edge's weight
+    Calculate node's importance in G according to node's degree and edge's weight
     
     :param G: 需要执行pagerank算法的图，执行pagerank算法之后，该图并不改变。
     :param max_iter: 最大迭代次数，默认为100次
