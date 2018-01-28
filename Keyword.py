@@ -91,7 +91,7 @@ class KeywordEx:
     
     def keyphrase(self, doc, window = 5, Keynum = 5):
         # Return the Key phrases according to the keyword list
-        self.keywordex(doc = doc, window = window, Keynum = Keynum + 10)
+        self.keyword(doc = doc, window = window, Keynum = Keynum + 10)
         keywordset = set(self.Keyword)
         keyphrset = set()
         for sente in self.sentens:
