@@ -30,7 +30,7 @@
  ```
  >>> from Keysente import KeysenteEx
  >>> k = KeysenteEx()
- >>> k.docsummary('test.txt', threshold = 0.01, Keynum = 3)
+ >>> k.docsummary('test.txt', Keynum = 3)
  ```
  
  关键词提取与关键词组提取
@@ -45,11 +45,7 @@
  ## 参数说明
  
  * test.txt为文档名，函数只接受UTF-8编码的文档
- 
- * threshold为阈值，当两节点相似程度大于该值时，在两节点之间加边，默认值为0.01
   
  * Keynum为返回的关键语句/词的数量，在关键词组提取中，该值决定在Keynum + 10个关键字中寻找关键词组，该值与返回的关键词组的数量没有绝对关系
  
  * window为共现窗口的大小，默认为5
- 
- 
