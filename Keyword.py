@@ -72,7 +72,7 @@ class KeywordEx:
                         edge_to_add.append((word1, word))
                     G.remove_node(word2)
                     G.add_edges_from(edge_to_add)
-    def keywordex(self, doc, window = 5, Keynum = 5):
+    def keyword(self, doc, window = 5, Keynum = 5):
         '''
         Key word extraction
         :return: Keynum key words
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     key = KeywordEx()
     print('Please input file name:', end='')
     s = input()
-    print(key.keywordex(s, window = 5, Keynum = 5))
+    print(key.keyword(s, window = 5, Keynum = 5))
     print(key.keyphrase(s))
 
 
