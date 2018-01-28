@@ -4,12 +4,12 @@ import networkx as nx
 
 class KeysenteEx:
     def __init__(self):
+        self.threshold = 0.01
         self.sentens = []
 
     def Addnode(self, doc, G):
         '''
         Add node to the graph according to the doc's sentences
-
         :param doc: The doc need to cope with
         :param G: The origin graph
         :return: The graph with nodes added
@@ -23,29 +23,27 @@ class KeysenteEx:
             G.add_node(i)
         return G
 
-    def Addedge(self, G, threshold = 0.01):
+    def Addedge(self, G):
         '''
-        Add edges to the graph where the similarity of two sentences > threshold
+        Add edges to the graph where the similarity of two sentences > self.threshold
         :param G: The graph need to add edges
-        :param threshold: Deciding whether a edge should be added
         :return: The graph with edges added
         '''
         for sentelead in G:
             for sentefol in G:
                 # sentelead and sentefol are the index of sentens
-                if simi(self.sentens[sentelead], self.sentens[sentefol]) > threshold and sentelead != sentefol:
+                if simi(self.sentens[sentelead], self.sentens[sentefol]) > self.threshold and sentelead != sentefol:
                     G.add_edge(sentelead, sentefol, weight = simi(self.sentens[sentelead], self.sentens[sentefol]))
         return G
-    def docsummary(self, doc, threshold = 0.01, Keynum = 3):
+    def docsummary(self, doc, Keynum = 3):
         '''
         Finish the docsummary job
         :param doc: Same as above
-        :param threshold: Same as above
         :param Keynum: The number of sentences to return
         '''
         G = nx.Graph()
         self.Addnode(doc, G)
-        self.Addedge(G, threshold = threshold)
+        self.Addedge(G)
         G_pagerank = pagerank(G)
          # Find out the most important sentences
         keysente = sorted(G_pagerank, key=G_pagerank.get, reverse=True)
@@ -57,7 +55,7 @@ if __name__ == '__main__':
     keysente = KeysenteEx()
     print('Please input file name:', end='')
     s = input()
-    print(keysente.docsummary(s, threshold = 0.01, Keynum = 3))
+    print(keysente.docsummary(s, Keynum = 3))
 
 
         

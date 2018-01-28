@@ -63,7 +63,7 @@ class KeywordEx:
             for word2 in list(G):
                 if word1 or word2 is None:
                     pass
-                elif wordsim(word1, word2):
+                elif wordsim(word1, word2) == 0.9:
                     # 将word2节点的所有节点连至word1节点
                     # 删除word2节点
                     edge_to_add = []
