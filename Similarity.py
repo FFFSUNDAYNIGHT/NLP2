@@ -2,6 +2,7 @@
 
 from jieba import cut
 import numpy as np
+import re
 
 # significance of semantic similarity
 delta = 0.8
@@ -19,7 +20,11 @@ for l in open('wn-data-cmn.tab',encoding='utf8').readlines():
         wf += f
         syndict[wf] = synset
 
+punct = '[，。？！《》“”；：]'
+
 def simi(s1, s2):
+    s1 = re.sub(punct, '', s1)
+    s2 = re.sub(punct, '', s2)
     s1 = tuple(cut(s1))
     s2 = tuple(cut(s2))
     j = mkjoint(s1, s2)
