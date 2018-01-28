@@ -3,6 +3,7 @@ import jieba.posseg as p
 import re
 from jieba import cut
 from Pagerank import pagerank
+from Similarity import wordsim
 
 class KeywordEx:
     '''
@@ -35,8 +36,8 @@ class KeywordEx:
         :param Wordfilter: Filter the stop word. Default to an empty list
         :return: A graph with nodes and edges added
         '''
-        # Part of speech filter, only noun, verb, adjective can be added to the graph
-        POSre = re.compile('[nav].*')
+        # Part of speech filter, only noun, verb, adjective, adverb can be added to the graph
+        POSre = re.compile('[navd].*')
         with open(doc, 'r', encoding='utf8') as f:
             content = f.read().replace('\ufeff','')
             content = content.replace('\n','')
@@ -57,7 +58,20 @@ class KeywordEx:
             for j in range(i + 1, i + window):
                 # Every edge's weight is set to be one at the begining
                 G.add_edge(self.word[i], self.word[j], weight = 1)
-    
+        # Find out similar words
+        for word1 in list(G):
+            for word2 in list(G):
+                if word1 or word2 is None:
+                    pass
+                elif wordsim(word1, word2):
+                    # 将word2节点的所有节点连至word1节点
+                    # 删除word2节点
+                    edge_to_add = []
+                    word2_edges = G.edges([word2])
+                    for word2, word in word2_edges:
+                        edge_to_add.append((word1, word))
+                    G.remove_node(word2)
+                    G.add_edges_from(edge_to_add)
     def keywordex(self, doc, window = 5, Keynum = 5):
         '''
         Key word extraction
