@@ -22,7 +22,7 @@
  
  * wn-data-cmn.tab为中文wordnet数据库
  
- * test.txt为测试文件，编码格式只接受UTF-8
+ * test.txt为测试文件
  
  ## 使用方法
  
