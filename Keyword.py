@@ -105,7 +105,7 @@ class KeywordEx:
                     phraseword = []
                 else:
                     phraseword = []
-            # 检测最后一个单词
+            # 检测最后一个词是否和前一个词构成关键词组
             if len(phraseword) > 1:
                 keyphrset.add(''.join(phraseword))
         return [phrase for phrase in keyphrset]
