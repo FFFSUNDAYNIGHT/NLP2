@@ -3,6 +3,7 @@ from Pagerank import pagerank
 import networkx as nx
 
 class KeysenteEx:
+    # Key sentences extraction class
     def __init__(self):
         self.threshold = 0.01
         self.sentens = []

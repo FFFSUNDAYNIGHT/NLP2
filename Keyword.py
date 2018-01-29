@@ -6,18 +6,16 @@ from Pagerank import pagerank
 from Similarity import wordsim
 
 class KeywordEx:
-    '''
-    Key word extraction
-    '''
+    # Key word extraction class
 
     def __init__(self):
         self.sentens = []
         self.word = []
         self.Keyword = []
-        #self.Wordfilter = []
     def Readfilter(self, filter = 'stopwords.txt'):
         '''
         Load stop words from 'stopwords.txt' into Wordfilter
+        :return: Wordfilter
         '''
         Wordfilter = []
         with open(filter,'r',encoding='utf8') as f:
@@ -43,7 +41,7 @@ class KeywordEx:
             content = content.replace('\n','')
             self.sentens = content.split('。')
         self.sentens.remove('')
-        # Wordfilter is a list of stopword
+        # Wordfilter is a list of stopwords
         # Include punctuations
         for sente in self.sentens:
             sente = list(p.cut(sente))
@@ -53,7 +51,7 @@ class KeywordEx:
                 else:
                     pass
         G.add_nodes_from(self.word)
-        # Add edges where words are in the same window
+        # Add edges where words are in the same 'co-occurrence' window
         for i in range(len(self.word) - window + 1):
             for j in range(i + 1, i + window):
                 # Every edge's weight is set to be one at the begining
@@ -63,6 +61,7 @@ class KeywordEx:
             for word2 in list(G):
                 if word1 or word2 is None:
                     pass
+                    # if two words are similar, then wordsim(word1, word2) return 0.9
                 elif wordsim(word1, word2) == 0.9:
                     # 将word2节点的所有节点连至word1节点
                     # 删除word2节点
@@ -94,6 +93,8 @@ class KeywordEx:
         self.keyword(doc = doc, window = window, Keynum = Keynum + 10)
         keywordset = set(self.Keyword)
         keyphrset = set()
+        # 如果n个关键词在原文中是邻接的
+        # 则将这n个关键词连接成关键短语
         for sente in self.sentens:
             phraseword = []
             sente = list(cut(sente))
@@ -103,10 +104,12 @@ class KeywordEx:
                 elif len(phraseword) > 1:
                     keyphrset.add(''.join(phraseword))
                     phraseword = []
-                else:
+                else:个单词
                     phraseword = []
+            # 检查句子中最后一个词与前一个词是否构成关键短语
             if len(phraseword) > 1:
                 keyphrset.add(''.join(phraseword))
+            # 将其作为序列返回
         return [phrase for phrase in keyphrset]
 if __name__ == '__main__':
     key = KeywordEx()
