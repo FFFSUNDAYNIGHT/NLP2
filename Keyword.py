@@ -15,7 +15,6 @@ class KeywordEx:
     def Readfilter(self, filter = 'stopwords.txt'):
         '''
         Load stop words from 'stopwords.txt' into Wordfilter
-        :return: Wordfilter
         '''
         Wordfilter = []
         with open(filter,'r',encoding='utf8') as f:
@@ -93,8 +92,8 @@ class KeywordEx:
         self.keyword(doc = doc, window = window, Keynum = Keynum + 10)
         keywordset = set(self.Keyword)
         keyphrset = set()
-        # 如果n个关键词在原文中是邻接的
-        # 则将这n个关键词连接成关键短语
+        # 如果n关键词在原文中是邻接的
+        # 则将这n个关键词作为关键短语
         for sente in self.sentens:
             phraseword = []
             sente = list(cut(sente))
@@ -104,12 +103,11 @@ class KeywordEx:
                 elif len(phraseword) > 1:
                     keyphrset.add(''.join(phraseword))
                     phraseword = []
-                else:个单词
+                else:
                     phraseword = []
-            # 检查句子中最后一个词与前一个词是否构成关键短语
+            # 检测最后一个单词
             if len(phraseword) > 1:
                 keyphrset.add(''.join(phraseword))
-            # 将其作为序列返回
         return [phrase for phrase in keyphrset]
 if __name__ == '__main__':
     key = KeywordEx()
